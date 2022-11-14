@@ -6,37 +6,55 @@
     <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
-	<h1>Edit track</h1>
-	<div>
+	<div class="d-flex justify-content-center">
 		<form th:object="${track}" th:action="@{../savetrack}" action="#" method="post">
+			
+			<div style="clear: both; display: block; height: 10px;" class="form-group"></div>
+			<h1>Edit track</h1>
 			
 			<label for="trackid"></label>
 			<input type="hidden" id="trackid" th:field="*{trackId}" readonly="readonly" />
 			<div style="clear: both; display: block; height: 10px;" class="form-group"></div>
 		  	
-		  	<label for="artist">Artist</label>
-			<input type="text" id="artist" th:field="*{artist}" class="form-control" />
-			<div style="clear: both; display: block; height: 10px;" class="form-group"></div>
+		  	<div class="input-group mb-3">
+		  		<div class="input-group-prepend">
+		  			<span class="input-group-text" id="artist">Artist</span>
+		  		</div>
+		  		<input type="text" class="form-control" placeholder="Artist" aria-label="Artist" aria-describedby="artist" th:field="*{artist}">
+		  	</div>
 		  	
-		  	<label for="name">Track name</label>
-			<input type="text" id="name" th:field="*{name}" class="form-control" />
-			<div style="clear: both; display: block; height: 10px;" class="form-group"></div>
-		  	
-		  	<label for="albumlist">Album (if wanted album doesn't show up here, add it first <a href="/addalbum">here</a>)</label>
-			<select id="albumlist" th:field="*{album}" class="form-control">
-				<option th:each="album: ${albums}" th:value="${album.albumId}" th:text="${album.name}"></option>
-			</select>
-			<div style="clear: both; display: block; height: 10px;" class="form-group"></div>
-		  	
-			<label for="genrelist">Genre</label>
-			<select id="genrelist" th:field="*{genre}" class="form-control">
-				<option th:each="genre: ${genres}" th:value="${genre.genreId}" th:text="${genre.name}"></option>
-			</select>
-			<div style="clear: both; display: block; height: 10px;" class="form-group"></div>
+		  	<div class="input-group mb-3">
+		  		<div class="input-group-prepend">
+		  			<span class="input-group-text" id="trackname">Track name</span>
+		  		</div>
+		  		<input type="text" class="form-control" placeholder="Name" aria-label="name" aria-describedby="name" th:field="*{name}">
+		  	</div>
+
+			<label for="albumlist">If wanted album doesn't show up here, add it first <a href="/addalbum">here</a></label>
+		  	<div class="input-group mb-3">
+		  		<div class="input-group-prepend">
+		  			<span class="input-group-text" id="albumname">Album</span>
+		  		</div>
+		  		<select id="albumlist" th:field="*{album}" class="form-control">
+					<option th:each="album: ${albums}" th:value="${album.albumId}" th:text="${album.name}"></option>
+				</select>
+		  	</div>
+	  	
+		  	<div class="input-group mb-3">
+		  		<div class="input-group-prepend">
+		  			<span class="input-group-text" id="albumname">Genre</span>
+		  		</div>
+		  		<select id="genrelist" th:field="*{genre}" class="form-control">
+					<option th:each="genre: ${genres}" th:value="${genre.genreId}" th:text="${genre.name}"></option>
+				</select>
+		  	</div>
 			
-			<label for="link">YouTube link</label>
-			<input type="text" id="link" th:field="*{link}" class="form-control" />
-			<div style="clear: both; display: block; height: 10px;" class="form-group"></div>
+			<div class="input-group mb-3">
+		  		<div class="input-group-prepend">
+		  			<span class="input-group-text" id="link">YouTube link</span>
+		  		</div>
+		  		<input type="text" class="form-control" placeholder="Link" aria-label="link" aria-describedby="link" th:field="*{link}">
+		  	</div>
 			
 			<input type="submit" value="Save" class="btn btn-success"></input>
 			<a href="/tracklist" class="btn btn-danger">Cancel</a>

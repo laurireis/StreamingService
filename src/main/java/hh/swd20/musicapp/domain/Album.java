@@ -1,5 +1,6 @@
 package hh.swd20.musicapp.domain;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Album {
 	
@@ -16,9 +19,9 @@ public class Album {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long albumId;
-	private String artist;
-	private String name;
-	private String releaseDate;
+	private String artist, name;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date releaseDate;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "album")
 	private List<Track> tracks;
@@ -26,13 +29,13 @@ public class Album {
 	// constructors
 	public Album () {}
 	
-	public Album(String artist, String name, String releaseDate) {
+	public Album(String artist, String name, Date releaseDate) {
 		super();
 		this.artist = artist;
 		this.name = name;
 		this.releaseDate = releaseDate;
 	}
-	
+
 	// getters and setters
 	public Long getAlbumId() {
 		return albumId;
@@ -58,14 +61,14 @@ public class Album {
 		this.name = name;
 	}
 
-	public String getReleaseDate() {
+	public Date getReleaseDate() {
 		return releaseDate;
 	}
 
-	public void setReleaseDate(String releaseDate) {
+	public void setReleaseDate(Date releaseDate) {
 		this.releaseDate = releaseDate;
 	}
-	
+
 	public List<Track> getTracks() {
 		return tracks;
 	}

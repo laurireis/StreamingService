@@ -16,8 +16,7 @@ public class Playlist {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long playlistId;
-	private String name;
-	private int trackAmount;
+	private String name, coverLink;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "playlist")
 	private List<Track> tracks;
@@ -25,11 +24,12 @@ public class Playlist {
 	// constructors
 	public Playlist () {}
 	
-	public Playlist(String name) {
+	public Playlist(String name, String coverLink) {
 		super();
 		this.name = name;
+		this.coverLink = coverLink;
 	}
-	
+
 	// getters and setters
 	public Long getPlaylistId() {
 		return playlistId;
@@ -46,15 +46,15 @@ public class Playlist {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public int getTrackAmount() {
-		return trackAmount;
-	}
-
-	public void setTrackAmount(int trackAmount) {
-		this.trackAmount = trackAmount;
-	}
 	
+	public String getCoverLink() {
+		return coverLink;
+	}
+
+	public void setCoverLink(String coverLink) {
+		this.coverLink = coverLink;
+	}
+
 	public List<Track> getTracks() {
 		return tracks;
 	}
@@ -66,7 +66,7 @@ public class Playlist {
 	// toString
 	@Override
 	public String toString() {
-		return "Playlist [playlistId=" + playlistId + ", name=" + name + ", trackAmount=" + trackAmount + "]";
+		return "Playlist [playlistId=" + playlistId + ", name=" + name + ", coverLink=" + coverLink + "]";
 	}
 	
 }

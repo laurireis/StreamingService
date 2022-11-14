@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <title>Tracklist</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -8,10 +8,21 @@
 </head>
 <body>
 	<div class="container">
-		<div class="col-md-4" style="padding:10px 0">
-			<h1>Tracks</h1>
+		<div class="row">
+			<div class="col">
+				<h1>Tracks</h1>
+			</div>	
+			<div class="col" style="padding: 10px">
+				<h3 sec:authorize="isAuthenticated()" th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+			</div>
+			<div class="d-flex justify-content-right" style="padding: 10px">
+				<a sec:authorize="isAnonymous()" href="/login" class="btn btn-sm btn-primary">Login</a>
+				<form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+					<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+				</form>
+			</div>
 		</div>
-		
+	
 	    <table class="table table-striped">
 			<tr>
 				<th></th>
@@ -19,22 +30,26 @@
 			    <th>Name</th>
 			    <th>Album</th>
 			    <th>Genre</th>
-			    <th></th>
-			    <th></th>
-			</tr>  
+			    <th sec:authorize="hasAuthority('ADMIN')"></th>
+			    <th sec:authorize="hasAuthority('ADMIN')"></th>
+			</tr>
+			<tr th:if="${tracks.isEmpty()}">
+				<td class="text-center" colspan="10">No tracks found. Add some!</td>
+			</tr>
 	    	<tr th:each = "track : ${tracks}">
 	    		<td><a th:href="${track.link}" th:target="_blank" class="btn btn-success">Play</a></td>
-	    		<td th:text="${track.artist}"></td>
-	    		<td th:text="${track.name}"></td>
-	    		<td th:text="${track.album.name}"></td>
-	    		<td th:text="${track.genre.name}"></td>
-	    		<td><a th:href="@{/deletetrack/{id}(id=${track.trackId})}" class="btn btn-danger">Delete</a></td>
-	    		<td><a th:href="@{/edittrack/{id}(id=${track.trackId})}" class="btn btn-primary">Edit</a></td>
+	    		<td class="align-middle" th:text="${track.artist}"></td>
+	    		<td class="align-middle" th:text="${track.name}"></td>
+	    		<td class="align-middle" th:text="${track.album.name}"></td>
+	    		<td class="align-middle" th:text="${track.genre.name}"></td>
+	    		<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/deletetrack/{id}(id=${track.trackId})}" class="btn btn-danger">Delete</a></td>
+	    		<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edittrack/{id}(id=${track.trackId})}" class="btn btn-primary">Edit</a></td>
 	    	</tr>
 	     </table>
-	     <a href="/addtrack" class="btn btn-success">Add track</a>
-	     <a href="/addalbum" class="btn btn-success">Add album</a>
-	     <a href="/addgenre" class="btn btn-success">Add genre</a>
+	     <a href="/addtrack" class="btn btn-primary" sec:authorize="hasAuthority('ADMIN')">Add track</a>
+	     <a href="/addplaylist" class="btn btn-primary" sec:authorize="hasAuthority('ADMIN')">Add playlist</a>
+	     <a href="/addalbum" class="btn btn-primary" sec:authorize="hasAuthority('ADMIN')">Add album</a>
+	     <a href="/addgenre" class="btn btn-primary" sec:authorize="hasAuthority('ADMIN')">Add genre</a>
     </div>
 </body>
 </html>

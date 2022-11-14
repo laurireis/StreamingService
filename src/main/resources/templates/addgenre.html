@@ -6,15 +6,19 @@
     <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
-	<h1>Add genre</h1>
-	<div>
+	<div class="d-flex justify-content-center">
 		<form th:object="${genre}" th:action="@{/savegenre}" action="#" method="post">
 		  	
 		  	<div style="clear: both; display: block; height: 10px;" class="form-group"></div>
+		  	<h1>Add genre</h1>
+		  	<div style="clear: both; display: block; height: 10px;" class="form-group"></div>
 		  	
-		  	<label for="name">Genre name</label>
-			<input type="text" id="name" th:field="*{name}" class="form-control" />
-			<div style="clear: both; display: block; height: 10px;" class="form-group"></div>
+		  	<div class="input-group mb-3">
+		  		<div class="input-group-prepend">
+		  			<span class="input-group-text" id="name">Genre name</span>
+		  		</div>
+		  		<input type="text" class="form-control" placeholder="Name" aria-label="name" aria-describedby="name" th:field="*{name}">
+		  	</div>
 			
 			<input type="submit" value="Save" class="btn btn-success"></input>
 			<a href="/tracklist" class="btn btn-danger">Cancel</a>

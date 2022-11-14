@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Playlist view</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" /> 
+    
+</head>
+<body>
+	<div class="container">
+		<div class="col-md-4" style="padding:10px 0">
+			<a href="/" class="btn btn-primary">Home</a>
+		</div>
+		<div class="col-md-4" style="padding:10px 0">
+			<h1>Tracks</h1>
+		</div>
+		
+	    <table class="table table-striped">
+			<tr>
+				<th></th>
+			    <th>Artist</th>
+			    <th>Name</th>
+			    <th>Album</th>
+			    <th>Genre</th>
+			    <th></th>
+			    <th></th>
+			</tr>  
+	    	<tr th:each = "track : ${tracks}">
+	    		<td><a th:href="${track.link}" th:target="_blank" class="btn btn-success">Play</a></td>
+	    		<td th:text="${track.artist}"></td>
+	    		<td th:text="${track.name}"></td>
+	    		<td th:text="${track.album.name}"></td>
+	    		<td th:text="${track.genre.name}"></td>
+	    		<td><a th:href="@{/deletetrack/{id}(id=${track.trackId})}" class="btn btn-danger">Delete</a></td>
+	    		<td><a th:href="@{/edittrack/{id}(id=${track.trackId})}" class="btn btn-primary">Edit</a></td>
+	    	</tr>
+	     </table>
+	     <a href="/addtrack" class="btn btn-success">Add track</a>
+	     <a href="/addalbum" class="btn btn-success">Add album</a>
+	     <a href="/addgenre" class="btn btn-success">Add genre</a>
+    </div>
+</body>
+</html>

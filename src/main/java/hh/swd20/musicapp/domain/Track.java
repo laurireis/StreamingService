@@ -16,9 +16,7 @@ public class Track {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long trackId;
-	private String artist;
-	private String name;
-	private String link;
+	private String artist, name, link;
 	
 	@ManyToOne
 	@JsonIgnoreProperties("tracks")

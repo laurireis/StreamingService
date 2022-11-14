@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Streaming service</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" /> 
+    
+</head>
+<body>
+	<div class="container">
+		<div class="col-md-10" style="padding:10px 0">
+			<h1>Today's recommended playlists</h1>
+		</div>		
+	    <table class="table table-striped">  
+	    	<tr th:each = "playlist : ${playlists}">
+	    		<td><img th:src="${playlist.coverLink}" style="width: 100px"/></td>
+	    		<td th:text="${playlist.name}"></td>
+	    		<td><a th:href="@{/playlist/{id}(id=${playlist.playlistId})}" class="btn btn-primary">Listen</a></td>
+	    	</tr>
+	     </table>
+	     
+	     <div class="col-md-5" style="padding:10px 0">
+		     <a href="/addplaylist" class="btn btn-success">Add playlist</a>
+		     <a href="/addtrack" class="btn btn-success">Add track</a>
+		     <a href="/addalbum" class="btn btn-success">Add album</a>
+		     <a href="/addgenre" class="btn btn-success">Add genre</a>
+	     </div>
+    </div>
+</body>
+</html>
